@@ -1,0 +1,34 @@
+{
+  "elec2": {
+    "dataset": "Elec2 (Electricity)",
+    "n_samples": 45312,
+    "warm": 3000,
+    "static": {
+      "prequential_acc": 0.6859992437133674
+    },
+    "adaptive": {
+      "prequential_acc": 0.7311401020986954,
+      "n_retrains": 56
+    },
+    "incremental": {
+      "prequential_acc": 0.8640811117413499
+    },
+    "improvement_vs_static_pct": 6.5803073106869645
+  },
+  "insects_abrupt": {
+    "dataset": "INSECTS-Abr (abrupt)",
+    "n_samples": 52848,
+    "warm": 3000,
+    "static": {
+      "prequential_acc": 0.5250962927298989
+    },
+    "adaptive": {
+      "prequential_acc": 0.5673647889584337,
+      "n_retrains": 16
+    },
+    "incremental": {
+      "prequential_acc": 0.7243821216498154
+    },
+    "improvement_vs_static_pct": 8.049665711556838
+  }
+}

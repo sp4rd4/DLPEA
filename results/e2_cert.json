@@ -1,0 +1,78 @@
+{
+  "dataset": "CERT Insider Threat r4.2",
+  "n_users": 1000,
+  "n_days": 501,
+  "n_features": 11,
+  "n_insiders": 70,
+  "n_malicious_userdays": 1364,
+  "split_day": 300,
+  "warmup": 30,
+  "active_features": [
+    "logons",
+    "usb_connects",
+    "file_copies",
+    "emails",
+    "email_bytes"
+  ],
+  "tau": 1.431212707412748,
+  "rho": 0.995,
+  "features": [
+    "logons",
+    "logon_afterhours",
+    "logon_weekend",
+    "n_pc",
+    "usb_connects",
+    "usb_afterhours",
+    "file_copies",
+    "file_exe_zip",
+    "emails",
+    "email_external",
+    "email_bytes"
+  ],
+  "results": {
+    "GA-profile": {
+      "auc": 0.46615975422427036,
+      "ap": 0.42092272956346183,
+      "n_insiders": 70,
+      "recall@20": 0.2571428571428571,
+      "precision@20": 0.9,
+      "recall@50": 0.38571428571428573,
+      "precision@50": 0.54,
+      "recall@100": 0.44285714285714284,
+      "precision@100": 0.31
+    },
+    "isolation_forest": {
+      "auc": 0.4515591397849463,
+      "ap": 0.11352001074626196,
+      "n_insiders": 70,
+      "recall@20": 0.07142857142857142,
+      "precision@20": 0.25,
+      "recall@50": 0.15714285714285714,
+      "precision@50": 0.22,
+      "recall@100": 0.17142857142857143,
+      "precision@100": 0.12
+    },
+    "lof": {
+      "auc": 0.2622119815668203,
+      "ap": 0.06713729660128362,
+      "n_insiders": 70,
+      "recall@20": 0.014285714285714285,
+      "precision@20": 0.05,
+      "recall@50": 0.014285714285714285,
+      "precision@50": 0.02,
+      "recall@100": 0.04285714285714286,
+      "precision@100": 0.03
+    },
+    "ocsvm": {
+      "auc": 0.5605222734254992,
+      "ap": 0.14536955152401018,
+      "n_insiders": 70,
+      "recall@20": 0.1,
+      "precision@20": 0.35,
+      "recall@50": 0.17142857142857143,
+      "precision@50": 0.24,
+      "recall@100": 0.22857142857142856,
+      "precision@100": 0.16
+    }
+  }
+}

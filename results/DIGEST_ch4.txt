@@ -1,0 +1,75 @@
+# ДАЙДЖЕСТ РЕЗУЛЬТАТІВ РОЗДІЛУ 4 (реальні дані)
+
+## E1. Класифікація документів (ai4privacy PII + 20 Newsgroups, реальні корпуси)
+### ai4privacy PII (критичні ідентифікатори)
+  RandomForest: F1=0.856±0.015 P=0.931 R=0.793 fit=1.30s pred/1k=0.035s
+  GradientBoosting: F1=0.840±0.019 P=0.925 R=0.770 fit=1.19s pred/1k=0.002s
+  LinearSVM: F1=0.850±0.009 P=0.911 R=0.796 fit=0.01s pred/1k=0.001s
+  LogisticRegression: F1=0.845±0.008 P=0.934 R=0.772 fit=0.02s pred/1k=0.001s
+  NaiveBayes: F1=0.819±0.008 P=0.889 R=0.761 fit=0.00s pred/1k=0.001s
+  GA-rules: F1=0.774±0.013 P=0.791 R=0.765 fit=20.93s pred/1k=0.000s
+  GA інтерпретованість: правил=7.6 умов/правило=2.1
+  Приклади правил GA-rules:
+    - IF meta_digit_ratio > 0.0635 AND pat_card_like > 0.144 THEN confidential
+    - IF kw_credential > 0.304 THEN confidential
+    - IF pat_crypto > 0.124 AND kw_credential < 1e-09 THEN confidential
+    - IF account > 0.0648 AND meta_len > 0.142 AND kw_credential < 1e-09 THEN confidential
+    - IF card > 0.0224 THEN confidential
+    - IF using > 0.0444 AND meta_digit_ratio < 0.0455 AND password < 1e-09 THEN confidential
+    - IF pat_ssn > 0.0455 THEN confidential
+    - IF payment > 0.0267 AND payments < 1e-09 AND kw_credential < 1e-09 THEN confidential
+### 20 Newsgroups (тематична конфіденційність)
+  RandomForest: F1=0.664±0.021 P=0.828 R=0.557 fit=1.66s pred/1k=0.038s
+  GradientBoosting: F1=0.605±0.020 P=0.873 R=0.464 fit=1.78s pred/1k=0.003s
+  LinearSVM: F1=0.703±0.022 P=0.767 R=0.650 fit=0.02s pred/1k=0.001s
+  LogisticRegression: F1=0.664±0.027 P=0.835 R=0.553 fit=0.07s pred/1k=0.001s
+  NaiveBayes: F1=0.675±0.019 P=0.736 R=0.627 fit=0.00s pred/1k=0.001s
+  GA-rules: F1=0.558±0.025 P=0.409 R=0.875 fit=17.73s pred/1k=0.000s
+  GA інтерпретованість: правил=5.0 умов/правило=2.5
+  Приклади правил GA-rules:
+    - IF meta_digit_ratio < 0.0117 AND god < 1e-09 AND hockey < 1e-09 THEN confidential
+    - IF key > 0.0286 AND team < 0.00823 AND graphics < 1e-09 THEN confidential
+    - IF means > 0 AND new < 0.0226 AND sale < 1e-09 THEN confidential
+    - IF fbi > 0.0116 AND new > 0.0514 AND drive < 1e-09 THEN confidential
+### lambda-чутливість (20NG)
+  lambda=0.0: F1=0.550±0.023 правил=4.3
+  lambda=0.02: F1=0.551±0.022 правил=4.3
+  lambda=0.05: F1=0.551±0.022 правил=4.0
+  lambda=0.1: F1=0.549±0.024 правил=3.7
+  lambda=0.2: F1=0.540±0.027 правил=2.7
+
+## E2. Поведінкове профілювання (CERT Insider Threat r4.2, реальний)
+  користувачів=1000, днів=501, інсайдерів=70, шкідливих user-days=1364, ознак=11, split=300
+  активні ознаки ГА-профілю: ['logons', 'usb_connects', 'file_copies', 'emails', 'email_bytes']
+  ГА-профіль (запропонований): AP=0.421 P@20=0.900 P@50=0.540 R@50=0.386 R@100=0.443 AUC=0.466
+  Isolation Forest: AP=0.114 P@20=0.250 P@50=0.220 R@50=0.157 R@100=0.171 AUC=0.452
+  LOF: AP=0.067 P@20=0.050 P@50=0.020 R@50=0.014 R@100=0.043 AUC=0.262
+  One-Class SVM: AP=0.145 P@20=0.350 P@50=0.240 R@50=0.171 R@100=0.229 AUC=0.561
+
+## E3. Виявлення дрейфу концепції
+### 3а. Стандартні потоки RandomRBF (генератор river), коваріантний дрейф, 10 потоків, 4 концепти
+  [раптовий дрейф, tolerance=500]
+    KS+confirm (proposed): P=0.860 R=1.000 F1=0.918 затримка=275 хибних=0.60
+    KS no-confirm: P=0.613 R=1.000 F1=0.753 затримка=150 хибних=2.10
+    adwin: P=0.467 R=0.333 F1=0.387 затримка=208 хибних=0.80
+    ddm: P=0.240 R=0.100 F1=0.136 затримка=351 хибних=1.30
+    eddm: P=0.129 R=0.433 F1=0.193 затримка=75 хибних=20.90
+    kswin: P=0.275 R=0.133 F1=0.169 затримка=85 хибних=1.00
+  [поступовий дрейф, tolerance=1200]
+    KS+confirm (proposed): P=0.885 R=1.000 F1=0.932 затримка=340 хибних=0.50
+    KS no-confirm: P=0.756 R=1.000 F1=0.848 затримка=190 хибних=1.60
+    adwin: P=0.775 R=0.600 F1=0.661 затримка=561 хибних=0.30
+    ddm: P=0.520 R=0.300 F1=0.353 затримка=403 хибних=0.70
+    eddm: P=0.193 R=0.500 F1=0.264 затримка=207 хибних=19.10
+    kswin: P=0.333 R=0.167 F1=0.213 затримка=396 хибних=1.00
+### 3б. Реальні потоки INSECTS (Souza 2020), 4 варіанти, tolerance=2000
+    KS+confirm (proposed): P=0.156 R=0.700 F1=0.232 затримка=740 хибних=15.50
+    KS no-confirm: P=0.125 R=0.950 F1=0.201 затримка=760 хибних=23.00
+    adwin: P=0.172 R=0.700 F1=0.259 затримка=148 хибних=9.00
+    ddm: P=0.292 R=0.475 F1=0.336 затримка=889 хибних=2.75
+    eddm: P=0.172 R=0.475 F1=0.249 затримка=560 хибних=54.75
+    kswin: P=0.254 R=0.825 F1=0.384 затримка=50 хибних=7.50
+
+## E4. Еволюційна адаптація політик (Elec2 + INSECTS-Abr, реальні)
+  Elec2 (Electricity) (n=45312): статична=0.686 адаптивна=0.731 (перенавчань=56) інкрементальна=0.864 | адаптивна проти статичної +6.6%
+  INSECTS-Abr (abrupt) (n=52848): статична=0.525 адаптивна=0.567 (перенавчань=16) інкрементальна=0.724 | адаптивна проти статичної +8.0%

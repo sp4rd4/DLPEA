@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# raw CERT r4.2 data is large and licensed separately
+data/cert/*
+!data/cert/README.md
+
+# cached detector configuration files
+results/_cert_cfg*
