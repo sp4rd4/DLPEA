@@ -1,4 +1,4 @@
-"""E1: класифікація документів — ГА-правила проти базлайнів.
+"""E1: класифікація документів: ГА-правила проти базлайнів.
 
 5-кратна стратифікована крос-валідація на двох датасетах (Synthetic PII,
 20 Newsgroups binary). Метрики якості + інтерпретованість + час (для E5).
@@ -58,7 +58,7 @@ def run_dataset(name, texts, y, seed=42, ga_params=None):
     texts = np.array(texts, dtype=object)
     for fold, (tr, te) in enumerate(skf.split(texts, y)):
         Xtr, Xte, feat_names = build_features(list(texts[tr]), list(texts[te]))
-        # NB вимагає невід'ємних ознак — зсуваємо метадані до [0..]
+        # NB вимагає невід'ємних ознак, тому зсуваємо метадані до [0..]
         shift = np.minimum(Xtr.min(axis=0), 0)
         for mname, factory in BASELINES.items():
             m = factory(seed + fold)
